@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import 'dotenv/config'
 
 import AuthRoute from './routes/AuthRoute.js'
+import CategoryRoute from './routes/CategoryRoute.js'
+import PostRoute from './routes/PostRoute.js'
+import UserRoute from './routes/UserRoute.js'
 
 // app initialization
 const app = express();
@@ -17,6 +20,9 @@ app.get('/api', (req, res) => {
 
 // other routes
 app.use('/api/auth', AuthRoute)
+app.use('/api/category', CategoryRoute)
+app.use('/api/posts', PostRoute)
+app.use('/api/users', UserRoute)
 
 
 // database and application connection

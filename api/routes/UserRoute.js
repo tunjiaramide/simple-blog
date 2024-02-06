@@ -1,10 +1,16 @@
 import express from 'express';
+import User from '../models/User.js'
 
 const router = express.Router()
 
-
-router.get('/users', (req, res) => {
-    res.send('Users route')
+// get all users
+router.get('/users', async (req, res) => {
+    try {
+        const allAuthors = await User.find({}).exec()
+        res.status(200).json(allAuthors)
+    } catch(err) {
+        res.status(500).send(err)
+    }
 })
 
 
