@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 
+
+// check if authorized, accept or reject access
 const auth = (req, res, next) => {
     try {
         const token = req.headers.authorization && req.headers.authorization.split(" ")[1];

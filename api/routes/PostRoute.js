@@ -1,11 +1,12 @@
 import express from 'express';
 import Post from '../models/Post.js'
+import auth from '../lib/auth.js';
 
 const router = express.Router()
 
 
 // create new post
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     
     // check if title is unique
     const checkTitle = await Post.findOne({ title: req.body.title }).exec()
@@ -54,7 +55,7 @@ router.get('/:id', async(req, res) => {
 
 
 // edit single post
-router.put('/:id', async(req, res) => {
+router.put('/:id', auth, async(req, res) => {
     // get the params id
     const id = req.params.id;
 
@@ -77,7 +78,7 @@ router.put('/:id', async(req, res) => {
 
 
 // delete single post
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', auth, async(req, res) => {
     // get the params id
     const id = req.params.id;
 

@@ -18,10 +18,25 @@ router.get('/', async (req, res) => {
 
 router.put('/:id', auth, async (req, res) => {
 
-    if (!req.username) return res.status(403).send({ "msg": "No access"})
-    
-    console.log(req.username)
-    res.send('You have access')
+    // get the params id
+    const id = req.params.id;
+
+    try {
+        // find user
+        const user = await User.findById({ _id: id})
+
+        // check if user can edit profile
+        if (user.username !== req.username) return res.status(403).send({"msg": "You dont have access to edit this profile"})
+
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            { $set: { ...req.body }},
+            { new: true }
+            )
+        res.status(200).json(updatedUser)
+    }catch(err){
+        res.status(500).json(err.message)
+    }
     
 
 })

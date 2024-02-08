@@ -1,9 +1,10 @@
 import express from 'express';
 import Category from '../models/Category.js'
+import auth from '../lib/auth.js';
 
 const router = express.Router()
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const { name } = req.body;
 
     // check if category exists
